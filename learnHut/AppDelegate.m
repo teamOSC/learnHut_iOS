@@ -27,7 +27,9 @@
     
     // [Optional] Track statistics around application opens.
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
+//    NSURL *myURL = [NSURL URLWithString:@"quora://question/(2706577)"];
+//    [[UIApplication sharedApplication] openURL:myURL];
+
     // Override point for customization after application launch.
     return YES;
 }
