@@ -7,7 +7,7 @@
 //
 
 #import "feedsViewController.h"
-
+#import "FeedTableViewCell.h"
 @interface feedsViewController ()
 @end
 
@@ -44,7 +44,7 @@
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.tabBarController.tabBar.hidden=NO;
-    
+    [self.tableView registerClass:[FeedTableViewCell class] forCellReuseIdentifier:@"cell"];
     PFUser *currentUser=[PFUser currentUser];
     if (currentUser)
     {
@@ -77,24 +77,33 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [[self feedItems] count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
+
+- (FeedTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    FeedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[[self.feedItems objectAtIndex:indexPath.row] objectForKey:@"image"]]];
+    [cell.textLabel setText:[[self.feedItems objectAtIndex:indexPath.row] objectForKey:@"title"]];
+    cell.textLabel.lineBreakMode=UILineBreakModeWordWrap;
+    cell.textLabel.numberOfLines = 0;
+
     // Configure the cell...
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
