@@ -21,7 +21,7 @@
     self.imgView=[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 250)];
     [self.imgView setImage:[UIImage imageNamed:@"s"]];
     UIScrollView *scroll=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 250, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-150)];
-    self.imgView.contentMode = UIViewContentModeScaleToFill;
+    self.imgView.contentMode = UIViewContentModeScaleAspectFill;
     self.cachedImageViewSize = self.imgView.frame;
     [self.view addSubview:scroll];
     [self.view addSubview:self.imgView];
@@ -63,6 +63,10 @@
         [self.profilePic setCenter:CGPointMake(self.view.center.x, self.imgView.center.y)];
         [self.profilePic setAlpha:(1-y/100)];
         [self.emailLabel setCenter:CGPointMake(self.view.center.x, self.imgView.center.y+70)];
+    }
+    if (y<0)
+    {
+        [scrollView setFrame:CGRectMake(0,CGRectGetMinY(scrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame))];
     }
     
 }
